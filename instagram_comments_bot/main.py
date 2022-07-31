@@ -1,7 +1,5 @@
 # Standard modules.
-from distutils.version import Version
 from time import sleep
-import os
 # Other modules.
 import pyautogui as pyauto  # click, typewrite, press, keyDown, keyUp
 import customtkinter as ct
@@ -9,6 +7,7 @@ import webbrowser
 from pynput.mouse import Listener
 from colorama import init
 from urllib.request import urlopen, urlretrieve
+from threading import Thread
 # My modules.
 from VN_Modules.Term_clear import clear_term
 from VN_Modules.get_app_data import get_appdata
@@ -24,6 +23,7 @@ class main:
 
     def __init__(self) -> None:
         self.check_update()
+        self.start_button_started = False
         init()  # Coloroma init.
         self.root = ct.CTk()
         SCREEN_WIDTH = self.root.winfo_screenwidth()
@@ -67,7 +67,7 @@ class main:
         self.mouse_pos_set.pack(pady=10, padx=100)
 
         self.button_start = ct.CTkButton(
-            master=self.root, text='Start', width=10, command=self.button_start_event)
+            master=self.root, text='Start', width=10, command=self.start_button_st)
         self.button_start.pack(pady=10, padx=100)
         # self.button_start.place(rely=0.8, relx=0.43)
 
@@ -75,6 +75,15 @@ class main:
 
     @classmethod
     def check_update(cls):
+        # Checks if connection is present.
+        try:
+            urlopen(
+                'https://www.google.com')
+        except:
+            pyauto.alert(
+                text=f'Cannot check for update\nConnection Error occured, check your network status', title='Instagram comments bot ')
+            return False
+
         try:
             update_get = urlopen(
                 'https://raw.githubusercontent.com/veernezus/Instagram_auto_comment_bot/main/Version')
@@ -85,7 +94,11 @@ class main:
                 text=f'Error while trying to download the update\nPress Ok to download it manually, Error: ({error})', title='Instagram comments bot ')
             if promt == 'OK':
                 webbrowser.open(
-                    'https://github.com/veernezus/Instagram_auto_comment_bot')
+                    'https://github.com/veernezus/Instagram_auto_comment_bot/releases/')
+            return False
+
+        # IfGuard, if the update is the same.
+        if cls.VERSION == update_get:
             return False
 
         if cls.VERSION != update_get:  # If it needs an update.
@@ -101,14 +114,15 @@ class main:
                         'https://github.com/veernezus/Instagram_auto_comment_bot/releases/download/test/main.exe', f'Instagram_bot_clicker_{update_get[:-1]}.exe')
                     pyauto.confirm(
                         text='Install done', title='Instagram comments bot ')
-
                 except Exception as error:
                     promt = pyauto.confirm(
                         text=f'Error while trying to download the update\nPress Ok to download it manually, Error: ({error})', title='Instagram comments bot ')
 
                     if promt == 'OK':
                         webbrowser.open(
-                            'https://github.com/veernezus/Instagram_auto_comment_bot')
+                            'https://github.com/veernezus/Instagram_auto_comment_bot/releases/')
+
+        return False
 
     @classmethod
     def appdata_file(cls):
@@ -151,7 +165,22 @@ class main:
             self.url_box.configure(
                 state='normal', placeholder_text='Post url...', placeholder_text_color='grey')
 
+    def start_button_st(self):
+        # To start (button_start_event)
+        self.button_start_thread = Thread(
+            target=self.button_start_event, daemon=True)
+
+        self.button_start_thread.start()  # Last to run.
+        return True
+
     def button_start_event(self):
+        # Starting by self.start_button_st()
+        # IfGuard so the user cannot start the program many times.
+        if self.start_button_started == True:
+            return False
+
+        #self.start_button_started = True
+
         self.user_url_box = self.url_box.get()
         self.user_comment = self.comment_box.get()
         self.user_number_of_comments = self.number_of_comments.get()
@@ -202,16 +231,24 @@ class main:
         if self.mouse_click_pos == None:
             pyauto.alert(
                 title='Instagram comments bot ', text='You must set a mouse position first by clicking Set mouse position')
+            self.url_box.bell()
             return False
+
+        # Starting.
+        self.start_button_started = True
+        self.button_start.configure(width=50)
+        self.button_start.configure(
+            text="Running.")
+        self.button_start.pack(pady=10, padx=100)
 
         self.user_number_of_comments = int(self.user_number_of_comments)
         self.user_delay_of_comments = int(self.user_delay_of_comments)
 
         if self.url_open_check_box.get() == 1:
             webbrowser.open(self.user_url_box)
-            sleep(4)
+            self.root.after(4000)
         else:
-            sleep(1)
+            self.root.after(1000)
 
         for i in range(self.user_number_of_comments):
             pyauto.click(self.mouse_click_pos)
@@ -220,11 +257,20 @@ class main:
             pyauto.press('enter')
             sleep(self.user_delay_of_comments+2)
 
+        self.button_start.configure(width=10)
+        self.button_start.configure(
+            text="Start")
+        self.button_start.pack(pady=10, padx=100)
+
         self.url_box.bell()
+        self.start_button_started = False
+
+        return False
 
     def start_gui(self):
         # Always last.
         self.root.mainloop()
+        return False
 
 
 # Program.
@@ -234,6 +280,7 @@ pyauto.alert(title='Instagram comments bot',
 
 try:
     main().start_gui()
+
 except Exception as error:
     print(f'ERROR : ({error})')
     pyauto.alert(title='ERROR OCCURED',
