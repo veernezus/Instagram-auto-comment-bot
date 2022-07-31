@@ -1,23 +1,28 @@
 # Standard modules.
 from time import sleep
+import os
 # Other modules.
 import pyautogui as pyauto  # click, typewrite, press, keyDown, keyUp
 import customtkinter as ct
 import webbrowser
 from pynput.mouse import Listener
 from colorama import init
+from urllib.request import urlopen
 # My modules.
 from VN_Modules.Term_clear import clear_term
-# from VN_Modules.get_app_data import get_appdata
+from VN_Modules.get_app_data import get_appdata
 
 
 class main:
     VERSION = '0.1.0'
     WIDTH = 400
     HEIGHT = 400
-    init()  # Coloroma init.
+    APPDATA_SAME = get_appdata() + '/Insta_bot'
+
+
 
     def __init__(self) -> None:
+        init()  # Coloroma init.
         self.root = ct.CTk()
         SCREEN_WIDTH = self.root.winfo_screenwidth()
         SCREEN_HEIGHT = self.root.winfo_screenheight()
@@ -65,6 +70,21 @@ class main:
         #self.button_start.place(rely=0.8, relx=0.43)
 
         # __init__
+    @classmethod
+    def check_update(cls):
+        update = False
+        update_get = urlopen(
+            'https://raw.githubusercontent.com/veernezus/asdasdad1231312/master/Procfile')
+        update_get = update_get.read()
+        print(update_get)
+    
+    @classmethod
+    def appdata_file(cls):
+        #if not os.path.exists(f'{cls.APPDATA_SAME}'):
+        #    with open(f'{cls.APPDATA_SAME}/Version','w') as version_file:
+
+        #with open(f'{cls.APPDATA_SAME}'):
+        pass
 
     def on_click(self, x, y, button, pressed):
         if self.clicked:
@@ -100,6 +120,7 @@ class main:
                 state='normal', placeholder_text='Post url...', placeholder_text_color='grey')
 
     def button_start_event(self):
+        self.check_update()
         self.user_url_box = self.url_box.get()
         self.user_comment = self.comment_box.get()
         self.user_number_of_comments = self.number_of_comments.get()
@@ -178,6 +199,7 @@ class main:
 # Program.
 pyauto.alert(title='Instagram comments bot',
              text='Made by Lampis\nPlease wait....', timeout=500)
+
 
 try:
     main().start_gui()
