@@ -23,7 +23,6 @@ class main:
     APPDATA_SAME = get_appdata() + '/Insta_bot'
 
     def __init__(self) -> None:
-        self.check_update()
         init()  # Coloroma init.
         self.root = ct.CTk()
         SCREEN_WIDTH = self.root.winfo_screenwidth()
@@ -96,19 +95,11 @@ class main:
                 return False
 
             if promt == 'OK':
+                print('Ok')
                 try:
-                    urlretrieve(
-                        'https://github.com/veernezus/Instagram_auto_comment_bot/releases/download/test/main.exe', f'Instagram_bot_clicker_{update_get[:-1]}.exe')
-                    pyauto.confirm(
-                        text='Install done', title='Instagram comments bot ')
-
-                except Exception as error:
-                    promt = pyauto.confirm(
-                        text=f'Error while trying to download the update\nPress Ok to download it manually, Error: ({error})', title='Instagram comments bot ')
-
-                    if promt == 'OK':
-                        webbrowser.open(
-                            'https://github.com/veernezus/Instagram_auto_comment_bot')
+                    urlretrieve('')
+                except:
+                    
 
     @classmethod
     def appdata_file(cls):
@@ -152,6 +143,7 @@ class main:
                 state='normal', placeholder_text='Post url...', placeholder_text_color='grey')
 
     def button_start_event(self):
+        self.check_update()
         self.user_url_box = self.url_box.get()
         self.user_comment = self.comment_box.get()
         self.user_number_of_comments = self.number_of_comments.get()
