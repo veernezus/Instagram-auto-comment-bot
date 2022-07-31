@@ -1,0 +1,13 @@
+
+instagram_comments_bot/make_exe.txt
+*.toc
+instagram_comments_bot/output/build/main/base_library.zip
+instagram_comments_bot/output/build/main/main.exe.manifest
+instagram_comments_bot/output/build/main/main.pkg
+instagram_comments_bot/output/build/main/PYZ-00.pyz
+instagram_comments_bot/output/build/main/warn-main.txt
+instagram_comments_bot/output/build/main/xref-main.html
+instagram_comments_bot/output/main.spec
+instagram_comments_bot/output/main.spec
+instagram_comments_bot/tempCodeRunnerFile.py
+instagram_comments_bot/output/dist/main.exe
