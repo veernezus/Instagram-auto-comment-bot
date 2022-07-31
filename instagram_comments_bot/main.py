@@ -1,4 +1,5 @@
 # Standard modules.
+from distutils.version import Version
 from time import sleep
 import os
 # Other modules.
@@ -13,13 +14,13 @@ from VN_Modules.Term_clear import clear_term
 from VN_Modules.get_app_data import get_appdata
 
 
+#  Made By Veernezus | Lampis Fotiadis | use it at your own risk!
+#  Starting.
 class main:
-    VERSION = '0.1.0'
+    VERSION = '1.0.1\n'
     WIDTH = 400
     HEIGHT = 400
     APPDATA_SAME = get_appdata() + '/Insta_bot'
-
-
 
     def __init__(self) -> None:
         init()  # Coloroma init.
@@ -67,23 +68,29 @@ class main:
         self.button_start = ct.CTkButton(
             master=self.root, text='Start', width=10, command=self.button_start_event)
         self.button_start.pack(pady=10, padx=100)
-        #self.button_start.place(rely=0.8, relx=0.43)
+        # self.button_start.place(rely=0.8, relx=0.43)
 
         # __init__
+
     @classmethod
     def check_update(cls):
         update = False
+
         update_get = urlopen(
-            'https://raw.githubusercontent.com/veernezus/asdasdad1231312/master/Procfile')
-        update_get = update_get.read()
+            'https://raw.githubusercontent.com/veernezus/Instagram_auto_comment_bot/main/Version')
+        update_get = update_get.readline()
+        update_get = update_get.decode('utf-8')
+
         print(update_get)
-    
+        print(cls.VERSION)
+        print(update_get == cls.VERSION)
+
     @classmethod
     def appdata_file(cls):
-        #if not os.path.exists(f'{cls.APPDATA_SAME}'):
+        # if not os.path.exists(f'{cls.APPDATA_SAME}'):
         #    with open(f'{cls.APPDATA_SAME}/Version','w') as version_file:
 
-        #with open(f'{cls.APPDATA_SAME}'):
+        # with open(f'{cls.APPDATA_SAME}'):
         pass
 
     def on_click(self, x, y, button, pressed):
