@@ -34,5 +34,7 @@
 
 'wasd' : False,
 
+'hey' : True,
+
                 
 }
