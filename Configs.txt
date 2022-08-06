@@ -1,0 +1,7 @@
+{
+                 'check_update': None,
+                'test': None,
+                'worker': None,
+                'new': None,
+                'new_thing':None
+                }
