@@ -5,6 +5,8 @@
 {
                  
 'check_update': True,
+
+'force_mouse_clicking': None,
                 
                 
 }
