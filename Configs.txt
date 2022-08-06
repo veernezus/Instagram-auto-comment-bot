@@ -1,3 +1,7 @@
+# Editing bellow values may cause script errors
+needs_reset = False
+
+
 {
                  
 'check_update': None,
