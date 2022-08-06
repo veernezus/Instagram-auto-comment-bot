@@ -30,6 +30,9 @@
 
 'hello_update' : True,
 
-'Hello_world' : False
+'Hello_world' : False,
+
+'wasd' : False,
+
                 
 }
