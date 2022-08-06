@@ -10,17 +10,17 @@
                 
 'new_thing': None,
 
-'new_thing': None,
+'new_th1ing': None,
 
-'new_thing': None,
+'new_t1hing': None,
 
-'new_thing': None,
+'new_th12ing': None,
 
-'new_thing': None,
+'new_thi123ng': None,
 
-'new_thing': None,
+'new_th123ing': None,
 
-'new_thing': None,
+'new_thi35ng': None,
 
                 
 }
