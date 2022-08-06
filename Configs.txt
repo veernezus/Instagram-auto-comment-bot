@@ -4,37 +4,7 @@
 
 {
                  
-'check_update': None,
+'check_update': True,
                 
-'test': None,
-                
-'worker': None,
-                
-'new': None,
-                
-'new_thing': None,
-
-'new_gasdasdadasaset' :None,
-
-'123123' :None,
-
-'asdada' :None,
-
-'fzxc' :None,
-
-'fzxc' :None,
-
-'asdasdasdasdfzxc' :None,
-
-'123' :None,
-
-'hello_update' : True,
-
-'Hello_world' : False,
-
-'wasd' : False,
-
-'hey' : True,
-
                 
 }
