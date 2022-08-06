@@ -9,7 +9,5 @@
 'new': None,
                 
 'new_thing':None,
-
-'added_worker' : None
-                
+              
 }
