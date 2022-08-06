@@ -1,5 +1,5 @@
 # Editing bellow may cause errors
-# Possible values : True, False | (None if somethings doesnt work correctly)
+# Possible values : True, False, None if somethings doesnt work correctly
 # This file is used to save stuff
 
 {
