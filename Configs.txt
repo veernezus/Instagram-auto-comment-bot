@@ -1,5 +1,5 @@
 # Editing bellow values may cause script errors
-needs_reset = False
+# needs_reset = False
 
 
 {
